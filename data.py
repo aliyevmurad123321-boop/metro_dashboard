@@ -17,22 +17,24 @@ STANSIЯ_WEIGHT = {
 }
 
 def get_sixliq_data():
-    now = datetime.now()
+    from datatime import datetime, timezone, timedelta
+    baku_tz = timezone(timedelta(hours=4))
+    now = datetime.now(baku_tz)
     saat = now.hour
     gun = now.weekday()  # 0=Bazar ertəsi, 6=Bazar
-
     # Metro bağlıdır
-    if saat < 6 or saat >= 0 and saat < 6:
+    if saat < 6:
         base = 0
     # Səhər piki
     elif 7 <= saat <= 9:
         base = 85
     # Axşam piki
-    elif 17 <= saat <= 19:
-        base = 90
+    e   base = 90
     # Günorta
+    lif 17 <= saat <= 19:
+
     elif 12 <= saat <= 14:
-        base = 60
+    base = 60
     # Normal saat
     else:
         base = 35
