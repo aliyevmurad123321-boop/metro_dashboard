@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 STANSIYALAR = {
     "Xətt 1": ["İçərişəhər", "Sahil", "28 May", "Gənclik",
@@ -9,7 +9,6 @@ STANSIYALAR = {
     "Xətt 3": ["Koroğlu", "Xocəsən"]
 }
 
-# Hər stansiya üçün pik saatlarda sıxlıq çarpanı
 STANSIЯ_WEIGHT = {
     "28 May": 1.5, "Gənclik": 1.4, "Nəriman Nərimanov": 1.3,
     "Koroğlu": 1.3, "Memar Əcəmi": 1.2, "Nəsimi": 1.2,
@@ -17,29 +16,22 @@ STANSIЯ_WEIGHT = {
 }
 
 def get_sixliq_data():
-    from datatime import datetime, timezone, timedelta
     baku_tz = timezone(timedelta(hours=4))
     now = datetime.now(baku_tz)
     saat = now.hour
-    gun = now.weekday()  # 0=Bazar ertəsi, 6=Bazar
-    # Metro bağlıdır
+    gun = now.weekday()
+
     if saat < 6:
         base = 0
-    # Səhər piki
     elif 7 <= saat <= 9:
         base = 85
-    # Axşam piki
-    e   base = 90
-    # Günorta
-    lif 17 <= saat <= 19:
-
+    elif 17 <= saat <= 19:
+        base = 90
     elif 12 <= saat <= 14:
-    base = 60
-    # Normal saat
+        base = 60
     else:
         base = 35
 
-    # Həftə sonu azalır
     if gun >= 5:
         base = int(base * 0.6)
 
