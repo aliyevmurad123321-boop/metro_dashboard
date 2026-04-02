@@ -22,7 +22,7 @@ def get_sixliq_data():
     gun = now.weekday()  # 0=Bazar ertəsi, 6=Bazar
 
     # Metro bağlıdır
-    if saat < 6 or saat >= 24:
+    if saat < 6 or saat >= 0 and saat < 6:
         base = 0
     # Səhər piki
     elif 7 <= saat <= 9:
